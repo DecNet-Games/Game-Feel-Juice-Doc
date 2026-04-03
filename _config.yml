@@ -1,8 +1,10 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
-theme: just-the-docs
+title: Game Feel & Juice
+description: The ultimate "Wow Factor" toolkit for Unity developers. Professional trauma-based shake, time management, and visual juice system.
+remote_theme: just-the-docs/just-the-docs
 
-url: https://just-the-docs.github.io
+url: https://decnet-games.github.io
+baseurl: /Game-Feel-Juice-Doc
 
 aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
+  Unity Asset Store: https://assetstore.unity.com/
+  Support: https://github.com/DecNet-Games/Game-Feel-Juice-Doc/issues

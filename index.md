@@ -1,35 +1,54 @@
 ---
+layout: default
 title: Home
-layout: home
+nav_order: 1
+description: "Game Feel & Juice: The ultimate 'Wow Factor' toolkit for Unity developers."
+permalink: /
 ---
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+# Game Feel & Juice System
+{: .fs-9 }
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+Better game feel shouldn't take weeks. Stop manual work—automate the "Wow Factor" with a production-ready toolkit designed for professional Unity developers.
+{: .fs-6 .fw-300 }
 
-More specifically, the created site:
+[Purchase on Asset Store](https://assetstore.unity.com/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View Demo](https://decnet-games.github.io/Game-Feel-Juice-Doc/demo){: .btn .fs-5 .mb-4 .mb-md-0 }
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+---
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+## The "Pain" vs. The "Solution"
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+| Manual Work (The Pain) | Juice System (The Solution) |
+| :--- | :--- |
+| **Boring Combat**: Attacks feel like paper. No impact, no weight. | **High-Impact Feedback**: Instant HitStop, SlowMo, and Screen Shake with one line of code. |
+| **Floating Characters**: Movement feels disconnected from the world. | **Trauma-Based Motion**: Realistic camera leaning, punch-back, and movement juice. |
+| **Static Visuals**: Renderers don't react to damage or interaction. | **Dynamic Rendering**: MaterialPropertyBlock-based flashes and high-performance ghosting trails. |
+| **Complex Setup**: Spending hours wiring up event listeners for simple juice. | **Static API**: `Juice.Shake()` or `Juice.Time.SlowMo()`—call from anywhere instantly. |
 
-To get started with creating a site, simply:
+---
 
-1. click "[use this template]" to create a GitHub repository
-2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+## Core Features
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+### 🌪️ Trauma-Based Shake
+Realistic, non-linear camera and object shaking using a trauma model. Perfect for explosions, land-mines, and heavy hits.
 
-----
+### ⏱️ Time-Warp Management
+Precise HitStop (frame freezing) and SlowMo control that doesn't break your physics or logic.
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+### 👻 Ghosting Trails
+High-performance "Phantom" trails for fast-moving characters. Zero-allocation rendering using advanced pooling.
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+### ⚡ Renderer Flashing
+The most efficient way to flash renderers. Uses `MaterialPropertyBlock` to avoid material leakage and GC pressure.
+
+---
+
+## Quick Links
+
+- [Installation Guide](./docs/installation)
+- [Getting Started](./docs/getting-started)
+- [API Reference](./docs/features/)
+- [FAQ](./docs/faq)
+
+> [!TIP]
+> **Pro Tip**: Use the **Juice Manager** to globally toggle effects during performance testing.
