@@ -4,10 +4,10 @@ title: Installation
 nav_order: 2
 ---
 
-# Installation
+# Installation & Pipeline Setup
 {: .no_toc }
 
-## Getting Started with Juice
+## Setup PULSE in Any Unity Project
 {: .no_toc .text-delta }
 
 1. TOC
@@ -15,51 +15,62 @@ nav_order: 2
 
 ---
 
-## 🚫 Purchase Prerequisite
-**Game Feel & Juice** is a professional production-ready toolkit and is **not a free asset**. You MUST purchase it from the official Unity Asset Store to receive the `unitypackage` and regular updates.
+## 📥 Package Import
 
-[Buy on Unity Asset Store](https://assetstore.unity.com/){: .btn .btn-primary .fs-5 }
-
----
-
-## 📥 Importing the Asset
-
-1.  Open your Unity Project (Unity 2021.3 LTS or newer recommended).
-2.  Navigate to **Window > Package Manager**.
-3.  Select **Packages: My Assets** from the dropdown.
-4.  Find **Game Feel & Juice** and click **Download** then **Import**.
-5.  In the Import window, ensure all files under `DecNetGames/JuiceSystem` are selected.
+1. Open your project in **Unity 2021.3 LTS, 2022.3 LTS, or Unity 6 (6000.x)+**.
+2. Navigate to **Window > Package Manager**.
+3. Select **Packages: My Assets** from the dropdown menu.
+4. Locate **PULSE — Game Feel & Polish Engine** and click **Download** then **Import**.
+5. Keep all default directories selected (`Assets/DecNetGames/PULSE/`).
 
 ---
 
-## ⚙️ Initial Setup
+## ⚙️ Initial Configuration (1-Click Setup Doctor)
 
-Once imported, follow these steps to activate the system in your scene:
+PULSE features an automated **Setup Doctor** that validates your scene, active render pipeline, and component bindings with one click:
 
-### 1. The Juice Manager
-The **Juice Manager** is a singleton that coordinates all "Wow Factor" effects.
-
--   Go to **GameObject > DecNetGames > Juice Manager**.
--   This will create a new object in your hierarchy.
--   Ensure the `Main Camera` property is assigned (if it doesn't auto-detect).
-
-### 2. Assembly Definitions
-If you use Assembly Definitions (`.asmdef`) in your project:
--   Add a reference to `DecNetGames.JuiceSystem.Runtime` in your custom `.asmdef`.
-
-### 3. Namespace Inclusion
-In any script where you want to trigger juice:
-```csharp
-using DecNetGames.JuiceSystem;
-```
+1. In the top Unity menu, open **Tools > PULSE > Setup Doctor** (or **Window > PULSE > Command Hub**).
+2. The Doctor scans your scene for:
+   - Camera references (`Camera.main` or Cinemachine Virtual Cameras).
+   - Audio listeners & mixer channels.
+   - Active render pipeline (Universal Render Pipeline, HDRP, or Built-in).
+   - UI Canvas setups for Floating Combat Text.
+3. Click **"Auto-Configure Scene"**. The wizard generates the persistent `JuiceManager` hierarchy and warms up the runtime pools.
 
 ---
 
-## 🛠️ Verification
-To verify the installation:
-1.  Open the `Demo` folder inside the asset.
-2.  Load the `Playground` scene.
-3.  Press **Play** and use the on-screen buttons to trigger effects. If the screen shakes and the time slows, you're all set!
+## 📦 Assembly Definitions (`.asmdef`)
 
-> [!IMPORTANT]
-> **Performance Tip**: Always use the **Juice Profiler** to check for material leakages if you're using high-frequency renderer flashes.
+PULSE strictly isolates runtime systems from editor tooling to guarantee zero runtime bloat and seamless build compilation:
+
+- **Runtime Assembly**: `DecNetGames.PULSE.Runtime.asmdef`
+- **Editor Assembly**: `DecNetGames.PULSE.Editor.asmdef`
+
+If your project utilizes custom Assembly Definitions:
+1. Select your project's `.asmdef` file in the Project window.
+2. Under **Assembly Definition References**, click **+** and add `DecNetGames.PULSE.Runtime`.
+3. Click **Apply**.
+
+---
+
+## 🎨 Render Pipeline Compatibility
+
+### Universal Render Pipeline (URP)
+- Fully supported out of the box.
+- Radial shockwaves and screen distortion shaders leverage URP Renderer Features or Camera Opaque Textures.
+- Ensure **Opaque Texture** is checked in your `UniversalRenderPipelineAsset`.
+
+### Built-in Render Pipeline
+- 100% native support using standard Blit and MaterialPropertyBlock pipelines.
+
+### High Definition Render Pipeline (HDRP)
+- Fully supported for all core modules, Spring Physics, Audio, TimeScale, and TextMeshPro popups. Custom post-processing volumes can be driven via `Juice.VFX`.
+
+---
+
+## 🎮 Verifying the Installation
+
+To immediately test the entire suite:
+1. Navigate to `Assets/DecNetGames/PULSE/Demos/`.
+2. Open `3D_Action_Arena.unity` or `2D_Shooter_Playground.unity`.
+3. Press **Play**. Use the interactive playground controls to trigger camera shakes, squash/stretch physics, audio ducking, and floating numbers!

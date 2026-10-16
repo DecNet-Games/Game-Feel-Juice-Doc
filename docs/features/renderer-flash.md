@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Renderer Flash
-parent: Features
-nav_order: 3
+parent: Core Engine Modules
+nav_order: 9
 ---
 
-# Renderer Flash
+# Renderer Flashing (Zero-Allocation Damage Feedback)
 {: .no_toc }
 
-## Efficient Visual Feedback
+## Efficient Visual Hit Feedback
 {: .no_toc .text-delta }
 
 1. TOC
@@ -16,45 +16,56 @@ nav_order: 3
 
 ---
 
-## ⚡ The MaterialPropertyBlock System
-Traditional sprite flashing in Unity involves switching the material or creating a new material instance (`renderer.material`). **Both are bad for production performance.**
+## ⚡ The MaterialPropertyBlock Architecture
 
-### 📈 Why MPB is Better
--   **No GC Allocation**: No new objects are created at runtime.
--   **No Material Leakage**: Avoids the "Material Inflation" bug in Unity where thousands of materials are created.
--   **Zero-Overhead**: Much faster than traditional material switching.
+In standard Unity tutorials, flashing a sprite or mesh white upon taking damage often looks like this:
+```csharp
+// 🛑 BAD: Allocates a new cloned Material instance every time!
+GetComponent<Renderer>().material.color = Color.white;
+```
+Accessing `renderer.material` creates a cloned copy of the material in memory. In an action game with dozens of projectiles and enemies, this results in:
+1. Massive memory leakage ("Material Inflation").
+2. Broken GPU batching (cloned materials cannot be dynamically batched).
+3. Frequent Garbage Collection hitches.
+
+### The PULSE Solution
+**PULSE** uses pre-allocated `MaterialPropertyBlock` (MPB) instances cached per renderer. It passes color tints and overlay intensity values directly to the GPU without touching material instances:
+- **0.00 KB GC Allocation** per flash call.
+- Preserves GPU instancing and batching.
+- Instant fallback for SpriteRenderer, SkinnedMeshRenderer, and standard MeshRenderer.
 
 ---
 
-## 💻 API Usage
+## 💻 C# API Reference
 
-### Simple Flash
-Flashes the target renderer to a bright color.
+### 1. Simple Hit Flash
 ```csharp
-Juice.Flash(myRenderer, Color.white, 0.1f); 
+using DecNetGames.PULSE;
+
+// Flash enemy white for 100 milliseconds
+Juice.Flash(targetRenderer, Color.white, 0.1f);
 ```
 
-### High-Pitched Flicker
-For a damage effect that lasts longer:
+### 2. Multi-Pulse Danger Flicker
+Ideal for invulnerability frames, shield overloads, or low-health warnings:
 ```csharp
-Juice.Flash(myRenderer, Color.red, 0.5f, 5); // 5 rapid flickers
+// Flash red with 4 rapid flickers over 0.5 seconds
+Juice.Flash(targetRenderer, Color.red, duration: 0.5f, pulses: 4);
+```
+
+### 3. Procedural Tint Ramp
+```csharp
+// Flash custom hex color (e.g. poison green or electric cyan)
+Juice.Flash(targetRenderer, new Color(0.2f, 1f, 0.3f, 1f), 0.15f);
 ```
 
 ---
 
-## ⚙️ Advanced Settings
+## ⚙️ Shader Property Compatibility
 
-| Field | Description |
-| :--- | :--- |
-| **_FlashFade Property** | The name of the shader property that handles the white overlay. |
-| **Default Flash Color** | Set a global color (e.g., White) in the Juice Manager. |
+The Flash module communicates with shaders using standard property identifiers:
+- `_FlashColor` (Color)
+- `_FlashAmount` (Float: 0.0 to 1.0)
+- `_Color` / `_BaseColor` (Fallback tint modulation)
 
----
-
-## 🧩 Advanced Use Cases
-
-### Custom Shaders
-The `FlashModule` is compatible with **Universal Render Pipeline (URP)** and **Build-In Render Pipeline** shaders. It works by setting a `_FlashAmount` float on the renderer. Ensure your character shaders support this property for maximum efficiency.
-
-> [!TIP]
-> **Pro Tip**: Use a white flash for simple damage, a red flash for low health alerts, and a gold flash for power-ups!
+Works seamlessly with Unity URP Lit, Simple Lit, Sprites-Default, and Built-in Standard shaders.

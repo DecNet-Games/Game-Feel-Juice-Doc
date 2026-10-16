@@ -1,63 +1,54 @@
 ---
 layout: default
-title: Time Management
-parent: Features
-nav_order: 2
+title: HitStop & Slow-Motion
+parent: Features & API Reference
+nav_order: 4
 ---
 
-# Time Management
+# ⏱️ Frame-Perfect HitStop & Slow-Motion
 {: .no_toc }
 
-## Impact Through Time
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
+Control the temporal flow of your game with microsecond accuracy to deliver visceral crunch and cinematic bullet-time.
+{: .fs-6 .fw-300 }
 
 ---
 
-## 🛑 HitStop (Frame Freeze)
-HitStop is the most effective way to make a hit feel heavy. When the player strikes an enemy, the game freezes for a moment (milliseconds), letting the impact sink in.
+## 🛑 HitStop (Impact Frame Freeze)
 
-### 📈 Behavior
--   **Timescale**: Drops to 0 instant.
--   **Lerp Out**: Smoothly returns to 1.0 based on settings.
+HitStop temporarily freezes scene time on sword slashes, bullet impacts, or parries. This lets the player's brain register the contact, multiplying perceived impact force tenfold.
 
-### 💻 API
+### 💻 1-Line Code Usage
 ```csharp
-Juice.Time.HitStop(0.12f); // Freeze for nearly 10 frames
+using DecnetGames.Pulse;
+
+// Freeze frame for 80 milliseconds (standard AAA melee crunch)
+Pulse.HitStop(duration: 0.08f);
+
+// Heavy boss impact hitstop
+Pulse.HitStop(duration: 0.15f);
 ```
 
 ---
 
-## 🌑 Slow-Motion
-Slow-motion can be used for dramatic effects or as a gameplay mechanic (e.g., bullet time).
+## 🌑 Slow-Motion Bullet-Time
 
-### 📈 Behavior
--   **Timescale**: Transitions to a custom value (e.g., 0.2).
--   **Duration**: Stays slow for a set duration.
--   **Smooth In/Out**: Configurable lerp durations.
+Smoothly transitions into slow motion and restores time scale without physics jitter.
 
-### 💻 API
+### 💻 1-Line Code Usage
 ```csharp
-Juice.Time.SlowMo(0.2f, 1.5f); // 20% speed for 1.5 seconds
+// Transition to 30% speed for 1.0 second with default easing
+Pulse.SlowMo(timeScale: 0.3f, duration: 1.0f);
+
+// Custom cubic ease-in and ease-out curves
+Pulse.SlowMo(timeScale: 0.2f, duration: 2.0f, easeIn: 0.15f, easeOut: 0.3f);
+
+// Immediately cancel active slow motion
+Pulse.SlowMoStop(easeOut: 0.2f);
 ```
 
 ---
 
-## ⚙️ Advanced Settings
+## ⚙️ Physics & Audio Synchronization
 
-| Field | Description |
-| :--- | :--- |
-| **Fixed Timestep Sync** | Automatically syncs `Time.fixedDeltaTime` to avoid physics jitters. |
-| **Smoothing Mode** | Choose between Linear, EaseOut, or None for the transition. |
-
----
-
-## 🧩 Advanced Use Cases
-
-### Non-Linear Time
-The `TimeModule` handles stacking. If you call `SlowMo` while `HitStop` is active, the system manages the priorities correctly, ensuring a smooth transition back to the baseline.
-
-> [!CAUTION]
-> **Warning**: Avoid changing `Time.timeScale` manually in your own scripts while using the Juice System, as it may conflict with the internal lerping logic. Use `Juice.Time.Reset()` to force a reset to 1.0.
+* **`fixedDeltaTime` Sync**: Automatically scales `Time.fixedDeltaTime` during time-warps to keep Unity physics simulation stable and prevent clipping.
+* **DSP Audio Low-Pass Auto-Muffle**: Automatically engages the audio filter during SlowMo so sound effects lower in pitch and muffle realistically.

@@ -1,72 +1,63 @@
 ---
 layout: default
-title: Camera Shake
-parent: Features
-nav_order: 1
+title: Camera Shake & FOV Zoom
+parent: Features & API Reference
+nav_order: 2
 ---
 
-# Camera Shake
+# 🎥 Trauma-Based Camera Shake & Polish
 {: .no_toc }
 
-## Trauma-Based Shaking
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
+Based on the industry-standard trauma model ($Trauma^2$ / $Trauma^3$ decay), PULSE delivers natural, physical screen shake that never clips or disorients players.
+{: .fs-6 .fw-300 }
 
 ---
 
 ## 🌪️ The Trauma System
-Most camera shakes in Unity are linear (a simple Perlin noise that fades). This system uses **Trauma**, a realistic physical model.
 
-### 📈 Decay Curve
--   **Trauma**: A value between 0 and 1.
--   **Shake**: Trauma squared (exponential intensity).
--   **Decay**: Trauma reduces linearly by a set amount per second (default: 1.0).
-
-This results in a shake that starts strong and smooths out naturally.
+Most legacy camera shakes are linear (simple Perlin noise that fades abruptly). PULSE uses physical **Trauma**:
+* **Trauma Range**: Normalized value from $0.0$ to $1.0$.
+* **Non-Linear Quadratic Decay**: $Shake = Trauma^2$ or $Trauma^3$. Stacking multiple explosions produces smooth escalation instead of violent jarring.
+* **Perlin Frequency Modulation**: Decays smoothly back to zero without offset drift.
 
 ---
 
-## 💻 API Usage
+## 💻 1-Line Code Usage
 
-### Simple Shake
-Adds to the current trauma level.
+### 1. Trauma Screen Shake
 ```csharp
-Juice.Shake(0.4f); // Adds 0.4 trauma
+using DecnetGames.Pulse;
+
+// Standard trauma shake
+Pulse.ScreenShake(trauma: 0.5f);
+
+// Heavy explosion shake with custom max offset and frequency
+Pulse.ScreenShake(trauma: 0.85f, maxOffset: 0.8f, frequency: 30f);
+
+// Immediately stop active screen shake
+Pulse.ScreenShakeStop();
 ```
 
-### Heavy Impact
-Useful for explosions or screen-wide events.
+### 2. Directional Camera Recoil Punch
 ```csharp
-Juice.Shake(0.8f); 
+using UnityEngine;
+
+// Recoil kick along firing direction
+Vector2 recoilDir = new Vector2(-0.2f, 0.4f);
+Pulse.CameraPunch(recoilDir, strength: 0.4f, duration: 0.2f);
 ```
 
-### From Position
-Shake only if the player is within range.
+### 3. Dynamic FOV / Ortho Zoom-Punch
 ```csharp
-Juice.ShakeAt(explosionSource, maxRadius);
+// Instant FOV kick on critical hit with smooth exponential return
+Pulse.CameraZoomKick(fovDelta: -5f, duration: 0.25f);
 ```
 
 ---
 
-## ⚙️ Settings
+## 🔌 Cinemachine 2.x & 3.x Auto-Bridge
 
-You can customize the shake behavior in the **Juice Manager**:
-
-| Setting | Description |
-| :--- | :--- |
-| **Max Radius** | Maximum movement offset on X/Y. |
-| **Max Rotation** | Maximum rotation angle. |
-| **Trauma Decay** | How fast the trauma "cools down". |
-| **Frequency** | The speed of the randomized noise. |
-
----
-
-## 🧩 Advanced Use Cases
-
-### Object Shake
-You don't just have to shake the camera. You can attach a `JuiceShakeComponent` to any Transform (like a barrel or a vibrating machine) and it will respond to trauma events.
-
-> [!TIP]
-> **Pro Tip**: Use a high frequency (30+) for small, high-pitched vibrations (like an engine) and a low frequency (5-10) for heavy earth-shaking effects.
+PULSE includes an automated adapter for Cinemachine:
+* When `com.unity.cinemachine` is installed, `CinemachineShakeAdapter` automatically binds to your active `CinemachineVirtualCamera` or `CinemachineBrain`.
+* Drives the virtual camera's `CinemachineBasicMultiChannelPerlin` noise channels seamlessly.
+* Zero manual wiring required—fallback to standard Unity Camera is automatic if Cinemachine is absent.

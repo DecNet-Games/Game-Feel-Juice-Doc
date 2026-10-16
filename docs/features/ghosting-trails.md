@@ -1,61 +1,37 @@
 ---
 layout: default
-title: Ghosting Trails
-parent: Features
-nav_order: 4
+title: Ghosting Dash Trails
+parent: Features & API Reference
+nav_order: 10
 ---
 
-# Ghosting Trails
+# 👻 Ghosting After-Image Dash Trails
 {: .no_toc }
 
-## High-Speed Phantom Effects
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
+Render high-performance after-image trails for sprints, dashes, and teleports using pre-warmed mesh pooling.
+{: .fs-6 .fw-300 }
 
 ---
 
-## 👻 After-Image Generation
-Ghosting trails (often called "Phantoms" or "After-Images") are essential for highlighting fast player movement, dashes, or special attacks.
+## ⚡ How It Works
 
-### 📈 How it Works
-1.  **Mesh Snapshot**: When an object moves fast enough, the system takes a "Snapshot" of the current mesh/sprite and its position.
-2.  **Pooling**: These snapshots are pooled (recycled) to prevent memory allocation during action.
-3.  **Fading**: Each ghost fades out based on a custom alpha curve.
+* **Snapshot Capture**: Bakes current mesh/sprite pose and world transform into pooled mesh renderer instances.
+* **Zero Allocation**: Avoids garbage collection during high-speed combat.
+* **Alpha Decay**: Smoothly fades out with custom tint colors and customizable lifetime.
 
 ---
 
-## 💻 API Usage
+## 💻 1-Line Code Usage
 
-### One-Shot Sequence
-Triggers a burst of ghosts for a single dash action.
 ```csharp
-Juice.Ghosting.Spawn(targetObject, 5, 0.05f); // 5 ghosts, every 0.05 seconds
+using DecnetGames.Pulse;
+using UnityEngine;
+
+public Renderer playerRenderer;
+
+// Spawn an after-image ghost with custom cyan tint and 0.25s lifetime
+Pulse.VFX.Ghost(playerRenderer, tint: Color.cyan, duration: 0.25f);
+
+// Default ghost snapshot
+Pulse.Ghost(playerRenderer);
 ```
-
-### Sustained Ghosting
-Enable for a duration (e.g., during "Power-Up" mode).
-```csharp
-Juice.Ghosting.Enable(targetObject, 2.0f); // Spawn ghosts for 2 seconds
-```
-
----
-
-## ⚙️ Advanced Settings
-
-| Field | Description |
-| :--- | :--- |
-| **Material Overlay** | The material used for the ghost (usually a transparent additive shader). |
-| **Fade Speed** | How quickly each ghost disappears. |
-| **Spawn Delay** | Time between each ghost snapshot. |
-
----
-
-## 🧩 Advanced Use Cases
-
-### Performance-First Ghosting
-The `GhostingModule` is optimized for high-density scenarios. Unlike standard Unity trails, it does not use a `TrailRenderer`, but instead draws a fixed set of meshes. This keeps your draw calls and vertex count predictable.
-
-> [!TIP]
-> **Pro Tip**: Use ghosting for characters moving at high velocity to give them a sense of extreme speed and power!
