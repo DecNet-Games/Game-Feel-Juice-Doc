@@ -68,5 +68,5 @@ Ensure you have imported the standard **TextMeshPro Essential Resources** (**Win
 
 - **Official Live Docs:** [https://decnet-games.github.io/Game-Feel-Juice-Doc/](https://decnet-games.github.io/Game-Feel-Juice-Doc/)
 - **Publisher Portal & Updates:** [https://decnetgames.com](https://decnetgames.com)
-- **Discord Community:** [https://discord.gg/decnetgames](https://discord.gg/decnetgames)
+- **Discord Community:** [https://discord.com/invite/FTXfv8mcVh](https://discord.com/invite/FTXfv8mcVh)
 - **Direct Support Email:** `support@decnetgames.com`
