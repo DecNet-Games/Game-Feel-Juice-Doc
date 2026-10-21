@@ -1,10 +1,20 @@
 title: PULSE — Game Feel & Polish Engine
 description: The ultimate AAA Game Feel & Polish Engine for Unity developers. Zero-GC springs, trauma camera shake, time hitstop, audio ducking, and 50+ presets.
-remote_theme: just-the-docs/just-the-docs
+theme: just-the-docs
 
 url: https://decnet-games.github.io
 baseurl: /Game-Feel-Juice-Doc
 
+# Navigation & Search settings
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+
+# Auxiliary links (Top Navigation Bar)
 aux_links:
-  Unity Asset Store: https://assetstore.unity.com/
-  Support: https://github.com/DecNet-Games/Game-Feel-Juice-Doc/issues
+  "⚡ Get PULSE on Asset Store": https://assetstore.unity.com/packages/tools/animation/pulse-aaa-game-feel-polish-engine-406136
+  "💬 Discord Community": https://discord.com/invite/FTXfv8mcVh
+
+# Color Scheme
+color_scheme: dark

@@ -15,6 +15,11 @@ nav_order: 2
 
 ---
 
+## 🛒 Asset Store Package
+[Get PULSE on Unity Asset Store](https://assetstore.unity.com/packages/tools/animation/pulse-aaa-game-feel-polish-engine-406136){: .btn .btn-primary .fs-5 }
+
+---
+
 ## 📥 Package Import
 
 1. Open your project in **Unity 2021.3 LTS, 2022.3 LTS, or Unity 6 (6000.x)+**.

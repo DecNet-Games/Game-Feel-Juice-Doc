@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Juicy UI Suite
-parent: Core Engine Modules
+parent: Features & API Reference
 nav_order: 10
 ---
 

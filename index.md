@@ -12,7 +12,7 @@ permalink: /
 Turn stiff, floaty prototypes into punchy, addictive gameplay with zero-GC 2nd-order harmonic springs, trauma-based screen shake, frame-perfect hitstop, volume-preserving squash & stretch, and 50+ battle-tested presets.
 {: .fs-6 .fw-300 }
 
-[Purchase on Asset Store](https://assetstore.unity.com/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [Getting Started](./docs/getting-started){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Purchase on Asset Store](https://assetstore.unity.com/packages/tools/animation/pulse-aaa-game-feel-polish-engine-406136){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [Getting Started](./docs/getting-started){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
@@ -57,7 +57,8 @@ Central Command Dashboard, 1-Click Scene Setup Doctor, Interactive Spring Visual
 
 ## 📚 Quick Documentation Links
 
-- [Installation & Requirements](./docs/installation)
+- [Installation & Setup](./docs/installation)
 - [Quick Start Guide](./docs/getting-started)
-- [API & Module Features](./docs/features/)
+- [Features & API Reference](./docs/features/)
+- [Interactive Demo Showcases](./docs/demos)
 - [Frequently Asked Questions](./docs/faq)
